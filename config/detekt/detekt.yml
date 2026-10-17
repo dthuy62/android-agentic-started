@@ -1,0 +1,19 @@
+build:
+  maxIssues: 0
+
+complexity:
+  LongParameterList:
+    functionThreshold: 8
+    constructorThreshold: 10
+  TooManyFunctions:
+    active: false
+
+style:
+  MagicNumber:
+    active: false
+  ForbiddenComment:
+    active: false
+
+naming:
+  FunctionNaming:
+    ignoreAnnotated: ['Composable']
