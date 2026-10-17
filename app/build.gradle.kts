@@ -17,14 +17,28 @@ android {
         applicationId = "com.example.agenticstarter"
         minSdk = 26
         targetSdk = 37
-        versionCode = 1
+        versionCode = providers.gradleProperty("versionCode").map(String::toInt).orElse(1).get()
         versionName = "0.1.0"
+    }
+
+    // Signing values only come from the environment (CI or a developer shell); without them release stays unsigned.
+    val keystorePath = providers.environmentVariable("ANDROID_KEYSTORE_FILE").orNull
+    signingConfigs {
+        if (keystorePath != null) {
+            create("release") {
+                storeFile = file(keystorePath)
+                storePassword = providers.environmentVariable("ANDROID_KEYSTORE_PASSWORD").get()
+                keyAlias = providers.environmentVariable("ANDROID_KEY_ALIAS").get()
+                keyPassword = providers.environmentVariable("ANDROID_KEY_PASSWORD").get()
+            }
+        }
     }
 
     buildTypes {
         release {
             isMinifyEnabled = true
             isShrinkResources = true
+            signingConfigs.findByName("release")?.let { signingConfig = it }
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro",

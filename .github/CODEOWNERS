@@ -1,0 +1,6 @@
+# Anyone who can push to the build branch could change these files and read the distribution secrets.
+# Pair this file with branch protection "Require review from Code Owners".
+/.github/ @dthuy62
+/fastlane/ @dthuy62
+/Gemfile* @dthuy62
+*.gradle.kts @dthuy62

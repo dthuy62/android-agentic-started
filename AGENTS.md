@@ -32,6 +32,7 @@ lowest level that fits (skill `android-agentic-starter`).
 | Change Compose UI                                | `.claude/rules/compose-ui.md`     |
 | Write or fix tests                               | `.claude/rules/testing.md`        |
 | Understand the system, onboard, find a recipe    | `docs/README.md`                  |
+| Change CI, signing, versioning or distribution   | `docs/ci-cd.md`                   |
 | Make or question an architecture decision        | `docs/decisions/` and skill `adr` |
 | First-time setup, rename, flavors, Firebase      | skill `setup-starter`             |
 

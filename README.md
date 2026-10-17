@@ -58,4 +58,5 @@ app/src/main/kotlin/<your/package>
 
 ## Not included on purpose (add when needed)
 
-Firebase, Crashlytics, product flavors, signing, a network layer, release and deploy pipelines.
+Firebase SDK and Crashlytics, product flavors, a network layer, and a store (Play) release pipeline.
+Test builds to Firebase App Distribution are included: see `docs/ci-cd.md`.

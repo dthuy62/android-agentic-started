@@ -1,0 +1,59 @@
+default_platform(:android)
+
+SIGNING_VARIABLES = %w[
+  ANDROID_KEYSTORE_FILE
+  ANDROID_KEYSTORE_PASSWORD
+  ANDROID_KEY_ALIAS
+  ANDROID_KEY_PASSWORD
+].freeze
+
+FIREBASE_VARIABLES = %w[
+  FIREBASE_APP_ID
+  FIREBASE_CREDENTIALS_FILE
+].freeze
+
+platform :android do
+  desc "Build a signed release APK. Signing comes from the ANDROID_KEYSTORE_* variables; VERSION_CODE is optional."
+  lane :build_release do |options|
+    SIGNING_VARIABLES.each do |name|
+      UI.user_error!("#{name} is not set. A release APK for testers must be signed.") if ENV[name].to_s.empty?
+    end
+
+    properties = {}
+    properties["versionCode"] = ENV["VERSION_CODE"] unless ENV["VERSION_CODE"].to_s.empty?
+
+    flavor = options[:flavor].to_s
+    gradle(
+      task: "assemble",
+      flavor: flavor.empty? ? nil : flavor,
+      build_type: "Release",
+      properties: properties
+    )
+  end
+
+  desc "Build the signed release APK and upload it to Firebase App Distribution."
+  lane :distribute do |options|
+    FIREBASE_VARIABLES.each do |name|
+      UI.user_error!("#{name} is not set.") if ENV[name].to_s.empty?
+    end
+
+    build_release(options)
+
+    notes_file = ENV.fetch("RELEASE_NOTES_FILE", "build/release_notes.txt")
+    upload = {
+      app: ENV["FIREBASE_APP_ID"],
+      android_artifact_type: "APK",
+      android_artifact_path: lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH],
+      service_credentials_file: ENV["FIREBASE_CREDENTIALS_FILE"]
+    }
+    groups = ENV["FIREBASE_TESTER_GROUPS"].to_s
+    upload[:groups] = groups unless groups.empty?
+    if File.exist?(notes_file)
+      upload[:release_notes_file] = notes_file
+    else
+      upload[:release_notes] = "No release notes."
+    end
+
+    firebase_app_distribution(**upload)
+  end
+end

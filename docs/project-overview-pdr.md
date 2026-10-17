@@ -29,11 +29,13 @@ tests and linters instead of prose alone.
 5. Dependency versions live only in `gradle/libs.versions.toml`.
 6. The example app (chat with a placeholder engine, settings) runs end to end with no backend.
 7. Konsist, detekt and ktlint run in the verify command and in CI.
+8. A merge into `develop` builds a signed release APK and sends it to Firebase App Distribution, and does nothing
+   (CI stays green) when Firebase is not configured ([ADR 7](decisions/0007-distribute-test-builds-with-fastlane-and-firebase.md)).
 
 ## Non-goals
 
-These are left out on purpose and added when a project needs them: Firebase and Crashlytics, product flavors and signing
-(available through `mobile-app-config`), a network layer, release and deploy pipelines, feature modules from day one,
+These are left out on purpose and added when a project needs them: Firebase SDK and Crashlytics, product flavors
+(available through `mobile-app-config`), a network layer, a store (Play) release pipeline, AAB uploads, feature modules from day one,
 and a shared base ViewModel hierarchy beyond `MviViewModel`.
 
 ## Acceptance

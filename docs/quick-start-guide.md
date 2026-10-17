@@ -49,6 +49,12 @@ scripts/install-git-hooks.sh
 The pre-commit hook runs `ktlintCheck` and `detekt` when Kotlin files are staged. Skip it once with
 `git commit --no-verify`; CI still runs the full command on every push to `main` and every pull request.
 
+## Send builds to testers
+
+Merging a pull request into `develop` builds a signed release APK and sends it to Firebase App Distribution. It needs a
+one-time setup (Firebase app, signing key, GitHub secrets); without it the step is skipped and CI stays green. See
+[CI/CD](ci-cd.md).
+
 ## Where to read next
 
 [System architecture](system-architecture.md) for the big picture, [codebase summary](codebase-summary.md) for where

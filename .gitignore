@@ -12,3 +12,10 @@ google-services.json
 /secrets.properties
 .kotlin/
 .claude/settings.local.json
+
+# fastlane / Ruby
+fastlane/report.xml
+fastlane/README.md
+.bundle/
+vendor/bundle/
+firebase-credentials*.json
