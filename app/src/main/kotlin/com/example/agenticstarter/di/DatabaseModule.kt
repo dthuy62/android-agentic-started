@@ -1,7 +1,7 @@
 package com.example.agenticstarter.di
 
 import android.content.Context
-import androidx.room.Room
+import androidx.room3.Room
 import com.example.agenticstarter.data.local.AppDatabase
 import com.example.agenticstarter.data.local.dao.ChatMessageDao
 import dagger.Module

@@ -11,4 +11,5 @@
   of raw `String`, `Int` or `Boolean`. Parse wire values at the `data/` boundary.
 - Prefer AndroidX/Jetpack or a maintained library over a hand-written helper. Versions go only in
   `gradle/libs.versions.toml`.
-- Room: change entities or DAOs and bump the database version; `app/schemas/` is generated.
+- Room 3 (`androidx.room3`): change entities or DAOs, bump the database version and provide a migration;
+  `app/schemas/` is generated. Steps: `docs/module-guides.md`.

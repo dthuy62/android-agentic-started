@@ -22,6 +22,7 @@ class ArchitectureTest {
             file.imports.any { import ->
                 import.name.startsWith("android.") ||
                     import.name.startsWith("androidx.room.") ||
+                    import.name.startsWith("androidx.room3.") ||
                     import.name.startsWith("androidx.datastore.")
             }
         }

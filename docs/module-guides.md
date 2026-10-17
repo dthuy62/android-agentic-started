@@ -43,9 +43,21 @@ Features never import each other; if one must open the other, `NavGraph.kt` pass
 
 ## Change the database
 
+The app uses Room 3 (`androidx.room3`, [ADR 6](decisions/0006-use-room-3.md)).
+
 1. Edit the entity or DAO in `data/local`.
-2. Bump `version` in `AppDatabase` and provide a migration (`Migration` or an auto-migration).
+2. Bump `version` in `AppDatabase` and provide a migration:
+   - basic changes: `autoMigrations = [AutoMigration(from = 1, to = 2)]` on `@Database`. Room fails the build for
+     ambiguous changes such as deleting or renaming a table or column and asks for an `AutoMigrationSpec`;
+   - complex changes (for example splitting a table): a `Migration(from, to)` from `androidx.room3.migration`, whose
+     `suspend fun migrate(connection: SQLiteConnection)` runs SQL, registered with `addMigrations(...)` in
+     `DatabaseModule`.
 3. Build once so Room exports the new JSON into `app/schemas/`, and commit it. Never edit that folder by hand.
+4. Avoid `fallbackToDestructiveMigration`: it deletes all data. If losing data is acceptable for some versions,
+   `fallbackToDestructiveMigrationFrom(...)` and `fallbackToDestructiveMigrationOnDowngrade()` are narrower.
+   Chat history is real user data, so the starter does not use any of them.
+5. Test migrations with `MigrationTestHelper` from `androidx.room3:room3-testing` in `androidTest`, with the schema
+   folder as assets. Add this when the first migration appears; there is no `androidTest` source set yet.
 
 ## Change the app identity
 

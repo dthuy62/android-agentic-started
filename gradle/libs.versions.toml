@@ -9,7 +9,7 @@ activityCompose = "1.13.0"
 coreKtx = "1.19.1"
 lifecycle = "2.11.0"
 nav3 = "1.2.0"
-room = "2.8.5"
+room = "3.0.3"
 datastore = "1.2.1"
 coroutines = "1.11.0"
 serialization = "1.11.0"
@@ -31,9 +31,8 @@ androidx-lifecycle-viewmodel-navigation3 = { module = "androidx.lifecycle:lifecy
 androidx-navigation3-runtime = { module = "androidx.navigation3:navigation3-runtime", version.ref = "nav3" }
 androidx-navigation3-ui = { module = "androidx.navigation3:navigation3-ui", version.ref = "nav3" }
 androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastore" }
-androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
-androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
-androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
+androidx-room3-runtime = { module = "androidx.room3:room3-runtime", version.ref = "room" }
+androidx-room3-compiler = { module = "androidx.room3:room3-compiler", version.ref = "room" }
 
 # --- Compose
 androidx-compose-bom = { module = "androidx.compose:compose-bom", version.ref = "composeBom" }
@@ -67,6 +66,7 @@ kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+androidx-room3 = { id = "androidx.room3", version.ref = "room" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
 ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint" }
